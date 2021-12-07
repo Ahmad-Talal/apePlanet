@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "proxy": "http://ec2-18-142-51-250.ap-southeast-1.compute.amazonaws.com/",
+  "proxy": "http://ec2-54-169-121-240.ap-southeast-1.compute.amazonaws.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
