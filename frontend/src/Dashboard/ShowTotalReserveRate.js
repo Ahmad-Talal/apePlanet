@@ -49,7 +49,7 @@ const ShowTotalReserveRate = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      8000
     );
   }, [startDate, endDate]);
  
@@ -65,7 +65,7 @@ const ShowTotalReserveRate = (props) => {
           </thead>
           <tbody>
             {reportData.map((row, id) => (
-              <tr key={id}>
+              <tr style={{"background-color": "lightgreen"}} key={id}>
                 <td>{parseFloat(row.views).toFixed(2)}%</td>
               </tr>
             ))}

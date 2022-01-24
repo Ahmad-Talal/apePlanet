@@ -49,7 +49,7 @@ const ShowConRate = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      8000
     );
   }, [startDate, endDate]);
  
@@ -66,7 +66,7 @@ const ShowConRate = (props) => {
           </thead>
           <tbody>
             {reportData.map((row, id) => (
-              <tr key={id}>
+              <tr style={{"background-color": "yellow"}} key={id}>
                 <td>{parseFloat(row.views).toFixed(2)}%</td>
               </tr>
             ))}            

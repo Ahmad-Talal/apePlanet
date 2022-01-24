@@ -17,6 +17,7 @@ const ShowCountryR = (props) => {
   const [totalPages, setTotalPages] = useState(0);
 
   const displayResults = (response) => {
+
     const queryResult = response.result.reports[0].data.rows;
     setTotalPages(queryResult.length);
     const total = response.result.reports[0].data.totals[0].values[0];
@@ -49,7 +50,7 @@ const ShowCountryR = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      8000
     );
   }, [startDate, endDate]);
  
@@ -67,7 +68,7 @@ const ShowCountryR = (props) => {
           </thead>
           <tbody>
             {reportData.map((row, id) => (
-              <tr key={id}>
+              <tr style={{"background-color": "orange"}} key={id}>
                 <td>{row.path}</td>
               </tr>
             ))}

@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "proxy": "http://ec2-54-169-121-240.ap-southeast-1.compute.amazonaws.com/",
+  "proxy": "http://127.0.0.1:8000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -25,6 +25,7 @@
     "react-chartjs-2": "^2.9.0",
     "react-datepicker": "^2.14.1",
     "react-dom": "^17.0.2",
+    "react-facebook-login": "^4.1.1",
     "react-ga": "^3.3.0",
     "react-gapi": "^1.0.1",
     "react-icons": "^3.10.0",

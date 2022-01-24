@@ -14,7 +14,7 @@ const Cpa =() =>{
     async function con(){
         
       //console.log('amount',amount)
-        const {data} =await axios.get(`https://graph.facebook.com/v12.0/act_${m}/insights?fields=ad_id%2Cad_name%2Caccount_id%2Ccpp&access_token=EAANWz0dwzuABAFt3JOD1G6yZAuZAZBZChGhHtoYBoof2OgUaEXGTRud69oLZCZAwerFOJZAfmICBg1n4abrZB1dOxZAD9LCYufbHiJ4GQ3Gf7CcFyxWm09sv5KpdD98BYd4VrxC3q9Ys12GWXjZBIEUGEGYN3zhUGGhHDfZBpGXjeibAEZBZA9kwMXNwO`)
+        const {data} =await axios.get(`https://graph.facebook.com/v12.0/act_$626846635153078/insights?fields=ad_id%2Cad_name%2Caccount_id%2Ccpp&access_token=EAANWz0dwzuABAFt3JOD1G6yZAuZAZBZChGhHtoYBoof2OgUaEXGTRud69oLZCZAwerFOJZAfmICBg1n4abrZB1dOxZAD9LCYufbHiJ4GQ3Gf7CcFyxWm09sv5KpdD98BYd4VrxC3q9Ys12GWXjZBIEUGEGYN3zhUGGhHDfZBpGXjeibAEZBZA9kwMXNwO`)
         // console.log("data",data.data[0].spend)
         // if(data.data[0].cpp){
         //   setAmount(data.data[0].cpp)

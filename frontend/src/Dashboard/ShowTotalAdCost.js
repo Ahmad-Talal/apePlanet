@@ -5,15 +5,18 @@ import {
   StyledTable,
 } from "./styles";
 import {Row,Col} from 'react-bootstrap'
-const ShowAdCost = ({obj,history}) => {
+const ShowTotalAdCost = ({obj,history}) => {
 
   const [spend,setSpend] = useState([])
   const [counter,setCounter] = useState(0)
+  const [ans,setAns] = useState(0.0)
   let set =0
-  let ff ;
+  let ff;
+  let ret=[]
+  let sum=0
   if(obj)
   {
-    //console.log("hahah  ",obj)
+   // console.log("hahah  ",obj)
    set = Number(obj.id)
   }
   
@@ -23,14 +26,14 @@ const ShowAdCost = ({obj,history}) => {
    try{
      if(obj.accessToken){
        if(counter===0){
-        // console.log("shishi  ",obj.fb)
-         ff= Number(obj.fb)
+        ff= Number(obj.fb)
     async function con(){
     const {data} =await axios.get(
           `https://graph.facebook.com/v12.0/act_${ff}/insights?date_preset=last_7d&time_increment=1&fields=spend%2Cctr%2Ccpp&access_token=${obj.accessToken}`)
           setSpend(data)
-       //   console.log("chand   ",data.data[0].spend)
-      console.log("all  ",spend)
+         
+         // console.log("chand   ",data.data[0].spend)
+      //console.log("all  ",spend)
           setCounter(1)
         }
   con()  
@@ -46,11 +49,31 @@ const ShowAdCost = ({obj,history}) => {
                  
    }
 
-  }, 9000);
+  }, 12000);
    
   }, [history,obj,spend,set,counter]);
- 
 
+  let cp=0.0;
+  let cpa=[]
+  try{
+    if(spend){
+      for(let i=0; i<spend.data.length;i++)
+      {
+          sum =sum + (Number(spend.data[i].spend))
+          cp=  (cp+ (Number(parseFloat(spend.data[i].cpp))) )
+  
+          console.log("yrr cp->",cp," i->",i+1,"  ind",(Number(parseFloat(spend.data[i].cpp))))
+          ret.push(sum)
+          cpa.push(cp)
+      }
+    
+     }
+  }
+ catch(err)
+ {
+   console.log("tareef",err)
+ }
+  
   return (
    
     <Row>
@@ -64,86 +87,64 @@ const ShowAdCost = ({obj,history}) => {
           </thead>
         
                     
-                    {spend && spend.data &&(
-                <tbody style={{"background-color": "lightgreen"}}>
-               {
-                 spend.data.map(s=>{
-                   return(<tr>        
-                <td>${s.spend}</td>
-                </tr>  )
-                 })
-               }
-                </tbody>
-                      )}
-        </StyledTable>
- 
-    </ReportWrapper>
-
-       </Col>
-
-    <Col md={2}>
-    <ReportWrapper>
-            <StyledTable>
-          <thead>
-            <tr>
-              CPA
-            </tr>
-          </thead>
-        
-                    
                     {spend.data &&(
                 <tbody style={{"background-color": "pink"}}>
-               {
-                 spend.data.map(cp=>{
-                   return(
-                    <tr>        
-                    <td>
-                    {parseFloat(cp.cpp).toFixed(2)}
-                    </td>
-                    </tr>  
-                   )
-                 })
-               }
+                
+                {
+                  spend.data.map((ts,index)=>{
+                    return(
+                           <tr>   
+                              
+                              <td>${ (ret[index]).toFixed(2) }</td>
+                          </tr>  
+                    )
+                  })
+                }
+
+               
+                
                 </tbody>
                       )}
         </StyledTable>
  
     </ReportWrapper>
+       </Col>
 
-    </Col>
 
-    <Col md={2}>
+       <Col md={6}>
     <ReportWrapper>
             <StyledTable>
           <thead>
             <tr>
-              CTR
+              Average CPA
             </tr>
           </thead>
         
                     
                     {spend.data &&(
                 <tbody style={{"background-color": "orange"}}>
-                
+
                 {
-                  spend.data.map(cr=>{
+                  spend.data.map((c,ind)=>{
                     return(
-                        <tr>        
-                            <td>{parseFloat(cr.ctr).toFixed(2)}%</td>
-                        </tr>  
+                           <tr>   
+                              
+                              <td>{((cpa[ind]/(ind+1)).toFixed(2))}</td>
+                          </tr>  
                     )
                   })
-                }
+                }                
                 </tbody>
                       )}
         </StyledTable>
  
     </ReportWrapper>
+
     </Col>
 
-   </Row>
+      </Row>
 
   );
 };
 
-export default ShowAdCost;
+export default ShowTotalAdCost;

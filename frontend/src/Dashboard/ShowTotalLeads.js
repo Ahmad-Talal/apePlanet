@@ -62,7 +62,7 @@ const ShowTotalLeads = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      10000
     );
   }, [startDate, endDate]);
  
@@ -79,7 +79,7 @@ const ShowTotalLeads = (props) => {
           </thead>
           <tbody>
             {reportData.map((row, id) => (
-              <tr key={id}>
+              <tr style={{"background-color": "cyan"}} key={id}>
                 <td>{ret[id]}</td>
               </tr>
             ))}

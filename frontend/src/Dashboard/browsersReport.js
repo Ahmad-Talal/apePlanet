@@ -90,7 +90,7 @@ const BrowsersReport = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      8000
     );
   }, [startDate, endDate]);
 

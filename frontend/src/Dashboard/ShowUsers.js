@@ -50,7 +50,7 @@ const ShowUsers = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      8000
     );
   }, [startDate, endDate]);
  
@@ -67,7 +67,7 @@ const ShowUsers = (props) => {
           </thead>
           <tbody>
             {reportData.map((row, id) => (
-              <tr key={id}>
+              <tr style={{"background-color": "khaki"}} key={id}>
                 <td>{row.views}</td>
               </tr>
             ))}

@@ -49,7 +49,7 @@ return(
         campaign.projectName ? (
         <ListGroup>
         <Row>
-        <Col md={8}>
+        <Col md={11}>
             <ListGroup.Item>
             <strong>Project Name</strong>
             <br/>
@@ -68,11 +68,11 @@ return(
             <strong>{campaign.integration}</strong>
             </ListGroup.Item>
             <h1>This is the PreLaunch Data</h1>
-            <Talala />
+            <Talala props={{ID:va}}/>
             <Goals />
         
          </Col>
-            <Col md={4}> 
+            <Col md={1}> 
             <LinkContainer to={parse}>
                  <Button variant="link">Go to Live Campaign</Button>
             </LinkContainer>

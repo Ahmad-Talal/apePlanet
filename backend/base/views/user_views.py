@@ -10,6 +10,8 @@ import os
 import pandas as pd
 import schedule
 from django.shortcuts import render
+from django.db import connections
+
 
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -28,6 +30,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView  
 from datetime import datetime
 
+import undetected_chromedriver as uc
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -162,6 +165,8 @@ def getCampaign(request, pk):
 def getCampaigns(request):
         campaigns=Campaign.objects.all()
         serializer= CampaignSerializer(campaigns,many=True)
+        print("idher")
+        print(connections['default'].queries)
         return Response(serializer.data)   
 
 @api_view(['DELETE'])
@@ -528,6 +533,6 @@ def callAll():
 def start():
         dd=datetime.now()
         scheduler= BackgroundScheduler()
-        scheduler.add_job(callAll,'date', run_date=f'{dd.year}-{dd.month}-{dd.day} 12:25:05')
+        scheduler.add_job(callAll,'date', run_date=f'{dd.year}-{dd.month}-{dd.day} 17:42:05')
         scheduler.start()
 

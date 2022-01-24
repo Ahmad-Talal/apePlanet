@@ -175,7 +175,7 @@ const SourceReport = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1100
+      8000
     );
   }, [startDate, endDate]);
 

@@ -1,6 +1,7 @@
-import React, { useState,useEffect } from "react";
+import React, { useState} from "react";
 import { useSelector} from 'react-redux'
-import {ListGroup,Row,Col,Button} from 'react-bootstrap';
+
+import {Row,Col,} from 'react-bootstrap';
 import DayVisitsReport from "./dayVisitsReport";
 import CountriesReport from "./countriesReport";
 import PageviewsReport from "./pageviewReport";
@@ -21,8 +22,7 @@ import ShowUsers from "./ShowUsers"
 import ShowDate from "./ShowDate"
 import ShowResRate from "./ShowResRate"
 import ShowAdCost from "./ShowAdCost"
-import ShowCpa from "./ShowCpa"
-import ShowCtr from "./ShowCtr"
+
 import ShowTotalUsers from "./ShowTotalUsers";
 import ShowTotalLeads from "./ShowTotalLeads";
 import ShowTotalReserves from "./ShowTotalReserves";
@@ -38,47 +38,45 @@ import Show24ResRate from "./Show24ResRate";
 import ShowCountryL from "./ShowCountryL";
 import Show24CountryL from "./Show24CountryL";
 import Show24Leads from "./Show24Leads";
-
+import ShowTotalAdCost from "./ShowTotalAdCost"
 
 import axios from 'axios'
 import Cpa from "./Cpa"
 import Ctr from "./Ctr"
-import {
-  StyledTable,
-} from "./styles";
-
-
-import { LastRow } from "./styles";
-import InputField from "../components/input";
 
 
 
-const DashBoard = () => {
+
+const DashBoard = ({obj,history}) => {
   const userLogin = useSelector(state=>state.userLogin)
     const {userInfo} = userLogin
-    const [campaign,setCampaign] = useState({})
-  const [viewID, setViewID] = useState(null);
-  
 
+  const [viewID, setViewID] = useState(null);
+  const [fbID, setFbID] = useState(null);
+
+ // console.log("chalo  ",obj)
 
 const setKar=()=>{
 
   async function campaignlist(){
         
     const {data} =await axios.get(`/api/users/campaign/${userInfo._id}`)
-        setCampaign(data)
+       
         setViewID(`${data.gaId}`)
-        //console.log('viewID',`${data.gaId}`)
+        setFbID(data.fbId)
+        //console.log('haae oee',data.fbId)
     }   
     campaignlist()  
     //setViewID(`${campaign.gaId}`)
+
 }
 
-let s=`${campaign.gaId}`
+
   return (
     <>
-    
+      
       {viewID ? (
+        <div>
         <div>
           <DayVisitsReport
             metric={"ga:users"}
@@ -117,37 +115,47 @@ let s=`${campaign.gaId}`
         </Row>
 
         <Row>
-        <Col md={2}>
-            <ShowDate viewID={viewID} />
-        </Col>
+        
+         
+              <Col md={2}>
+              <ShowDate viewID={viewID} />
+              </Col>
+       
+              <Col md={1}>
+              <ShowUsers viewID={viewID} /> 
+              </Col>
 
-         <Col md={1}>
-              <ShowUsers viewID={viewID} />
-            </Col>  
-            <Col md={1}>
+              <Col md={1}>
               <ShowLeads viewID={viewID} />
-            </Col>
-            <Col md={2}>
+              </Col>
+          
+          
+              <Col md={1}>
               <ShowConRate viewID={viewID} />
-            </Col>
-            <Col md={1}>
+              </Col>
+          
+              <Col md={1}>
               <ShowReserves viewID={viewID} />
-            </Col>
-            <Col md={1}>
+              </Col>
+            
+              <Col md={1}>
               <ShowResRate viewID={viewID} />
-            </Col>
-            <Col md={2}>
-              <ShowAdCost viewID={viewID} />
-            </Col>
-
-            <Col md={1}>
+              </Col>
+             
+              <Col md={5}>
+              <ShowAdCost obj={{accessToken:obj.accessToken, id:obj.id, fb:fbID}} />
+              </Col>
+              
+              
+    
+              {/* <Col md={2}>
               <ShowCpa viewID={viewID} />
-            </Col>
-            <Col md={1}>
+              </Col>
+      
+              <Col md={2}>
               <ShowCtr viewID={viewID} />
-            </Col> 
-
-        </Row>
+              </Col> */}
+            </Row>
 
         <Row>
           <Col md={12}>
@@ -170,12 +178,12 @@ let s=`${campaign.gaId}`
         <Col md={2}>
           <ShowTotalReserves viewID={viewID} />
         </Col>
-        <Col md={2}>
-              <ShowAdCost viewID={viewID} />
+        <Col md={4}>
+              <ShowTotalAdCost obj={{accessToken:obj.accessToken, id:obj.id, fb:fbID}} />
             </Col>
-            <Col md={2}>
+            {/* <Col md={2}>
               <ShowCpa viewID={viewID} />
-            </Col> 
+            </Col>  */}
       </Row>
 
        
@@ -241,6 +249,7 @@ let s=`${campaign.gaId}`
           </Col>
         </Row>
 
+        </div>
         </div>
       ) : (
         setKar()

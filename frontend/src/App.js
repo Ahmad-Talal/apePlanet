@@ -20,6 +20,8 @@ import ClientIdScreen from './screens/ClientIdScreen'
 import CommulativeIndiegogoScreen from './screens/CommulativeIndiegogoScreen'
 import LiveKickScreen from './screens/LiveKickScreen'
 import CommulativeKickstarterScreen from './screens/CommulativeKickstarterScreen'
+import C from './screens/C'
+
 
 import Goals from './Goals';
 import ReactGa from 'react-ga';
@@ -53,7 +55,8 @@ function App() {
       <Route path='/indiegogo/commulative' component={CommulativeIndiegogoScreen}/>
       <Route path='/kickvaala' component={LiveKickScreen}/>
       <Route path='/kickstarter/commulative' component={CommulativeKickstarterScreen}/>
-
+      <Route path='/fb' component={C}/>
+ 
       <Route path='/' component={HomeScreen}/>
       {/* <Route path='/' component={Goals}/> */}
     </Container>

@@ -49,7 +49,7 @@ const ShowCountryL = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      8000
     );
   }, [startDate, endDate]);
  
@@ -67,7 +67,7 @@ const ShowCountryL = (props) => {
           </thead>
           <tbody>
             {reportData.map((row, id) => (
-              <tr key={id}>
+              <tr style={{"background-color": "#f2f2f2"}} key={id}>
                 <td>{row.path}</td>
               </tr>
             ))}

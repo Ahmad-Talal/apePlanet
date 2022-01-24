@@ -34,6 +34,7 @@ const ShowLeads = (props) => {
       
     });
     setReportData(newReportData);
+    console.log("RREEPPOORRTT   ",reportData)
   };
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const ShowLeads = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      8000
     );
   }, [startDate, endDate]);
  
@@ -66,7 +67,7 @@ const ShowLeads = (props) => {
           </thead>
           <tbody>
             {reportData.map((row, id) => (
-              <tr key={id}>
+              <tr style={{"background-color": "lime"}} key={id}>
                 <td>{row.views}</td>
               </tr>
             ))}

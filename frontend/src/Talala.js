@@ -7,11 +7,45 @@ import Footer from "./components/foot";
 import axios from 'axios'
 import { useSelector} from 'react-redux'
 import Goals from './Goals'
-function Talala({history}) {
+import FacebookLogin from 'react-facebook-login';
 
+function Talala({match,history,props}) {
   const [idd,setIdd] = useState("")
   const userLogin = useSelector(state=>state.userLogin)
   const {userInfo} = userLogin
+  const [loggedIn,setLoggedIn] = useState(false)
+  const [userId,setUserId] = useState("")
+  const [name,setName] = useState("")
+  const [email,setEmail] = useState("")
+  const [picture,setPicture] = useState("")
+  const [token,setToken] = useState("")
+  const [set,setSet] = useState({})
+
+
+  // Facebook Functions 
+  const componentClicked = data =>{
+    console.log("data   ",data)
+};
+const responseFacebook = response => {
+  
+  try{
+
+    if(response.name){
+
+      //console.log("hahaha     ",response);
+      setName(response.name)
+      setLoggedIn(true)
+      
+      setEmail(response.email)
+      setPicture(response.picture.data.url)
+      setUserId(response.userId)
+      setToken(response.accessToken)
+    }  
+  }catch(err){
+
+  }
+    
+  };
 
   useEffect(() => {
 
@@ -37,7 +71,10 @@ else
     console.log("The following error occurred   ",err)
     
 }
-}, [history,userInfo])
+
+
+
+}, [history,userInfo,loggedIn,name,picture,email,userId,token])
 
   const [isSignedIn, setIsSignedIn] = useState(false);
 
@@ -74,10 +111,22 @@ else
           <Footer />
         </>
         
-      ) : (
-        <Dashboard />
+      )
+      
+      : loggedIn ?
+       (
+        <Dashboard obj ={{accessToken:token,id:props.ID}}/>
         
-      )}
+      )
+       :
+       <div>
+       <FacebookLogin
+          appId="638434380634525"
+          autoLoad={true}
+          fields="name,email,picture"
+          onClick={componentClicked}
+          callback={responseFacebook} />
+       </div>   }
       
     </div>
   );

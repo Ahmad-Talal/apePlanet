@@ -28,12 +28,12 @@ const CampaignScreen = ({history}) =>{
 
         if(userInfo && userInfo.isAdmin){
         async function userslist(){
-        const configuration = {
-            headers : {
-                'Content-type':'application/json',
-                Authorization: `Bearer ${userInfo.token}`
+            const configuration = {
+                headers : {
+                    'Content-type':'application/json',
+                    Authorization: `Bearer ${userInfo.token}`
+                }
             }
-        }
     
         const {data} =await axios.get(
             '/api/users/',

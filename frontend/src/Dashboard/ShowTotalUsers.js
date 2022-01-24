@@ -62,7 +62,7 @@ const ShowTotalUsers = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      9000
     );
   }, [startDate, endDate]);
  
@@ -79,7 +79,7 @@ const ShowTotalUsers = (props) => {
           </thead>
           <tbody>
             {reportData.map((row, id) => (
-              <tr key={id}>
+              <tr style={{"background-color": "lime"}} key={id}>
                 <td>{ret[id]}</td>
               </tr>
             ))}

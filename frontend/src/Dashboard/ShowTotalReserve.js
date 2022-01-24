@@ -12,7 +12,7 @@ import {
 
 const ShowTotalReserve = (props) => {
   const [reportData, setReportData] = useState([]);
-  const [startDate, setStartDate] = useState(addDays(new Date(), -7));
+  const [startDate, setStartDate] = useState(addDays(new Date(), - 7));
   const [endDate, setEndDate] = useState(new Date());
   const [totalPages, setTotalPages] = useState(0);
 
@@ -49,7 +49,7 @@ const ShowTotalReserve = (props) => {
         queryReport(request)
           .then((resp) => displayResults(resp))
           .catch((error) => console.error(error)),
-      1000
+      8000
     );
   }, [startDate, endDate]);
  
@@ -65,7 +65,7 @@ const ShowTotalReserve = (props) => {
           </thead>
           <tbody>
             {reportData.map((row, id) => (
-              <tr key={id}>
+              <tr style={{"background-color": "pink"}} key={id}>
                 <td>{row.views}</td>
               </tr>
             ))}
