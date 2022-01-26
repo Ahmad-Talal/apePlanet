@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-qojzionurr-05n^uz0_cu8^kck&p97q57f!fgl6%(!=_9g64i$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost','d9e2-110-93-234-10.ngrok.io']
+ALLOWED_HOSTS = ['dashboard.backerzoom.com']
 
 
 # Application definition
