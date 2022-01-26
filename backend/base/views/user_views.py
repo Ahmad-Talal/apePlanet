@@ -12,7 +12,6 @@ import schedule
 from django.shortcuts import render
 from django.db import connections
 
-
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
@@ -29,7 +28,8 @@ from rest_framework import status
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView  
 from datetime import datetime
-
+from time import sleep
+from random import randint
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
@@ -393,27 +393,29 @@ def getIndiegogoData():
 def getKickData():
         campaigns = Campaign.objects.all()
 
+        print(list(campaigns))
         for x in campaigns:
                 if x.platform=="kickstarter":
                         name = x.name
                         account = x.accountName
                         pas = x.password
                         ass = x.assign
-                        print("yesaddddddd")
-                        print(pas,account,name,"assign->",x.assign)
-        
+
                         try:
-                                browser = mechanicalsoup.StatefulBrowser()
+                                browser = mechanicalsoup.StatefulBrowser(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36")
+                                browser.open("https://www.kickstarter.com")
+                                browser.open("https://www.kickstarter.com/login?ref=nav")
 
-                                resp = browser.open(f"https://www.kickstarter.com/projects/imag1/{name}/dashboard?ref=creator_nav")
-
+                                sleep(randint(1,2))
                                 browser.select_form('form[action="/user_sessions"]')
-
                                 browser["user_session[email]"] = account
                                 browser["user_session[password]"] = pas
 
                                 after_login = browser.submit_selected()
-                                soup = BeautifulSoup(after_login.text, 'html.parser')
+
+                                campaign_page = browser.open(f"https://www.kickstarter.com/projects/imag1/{name}/dashboard?ref=creator_nav")
+
+                                soup = BeautifulSoup(campaign_page.text, 'html.parser')
 
                                 all_money = soup.find_all("span", class_="money")
                                 pleged, avg_pleged, pleged_via_kickstarter, pleged_via_external, pleged_via_custom = (money.text for money in all_money)
@@ -428,7 +430,7 @@ def getKickData():
 
                                 project_id = json.loads(soup.find_all("div", attrs={'data-attrs' : True})[0]['data-attrs'])["projectId"]
 
-                                refrerrers = browser.open(f"https://www.kickstarter.com/project_referrers/refs/stats?page=1&project_id={project_id}").json()
+                                # refrerrers = browser.open(f"https://www.kickstarter.com/project_referrers/refs/stats?page=1&project_id={project_id}").json()
                                 
                                 l=[]
                                 l.append({
@@ -444,27 +446,9 @@ def getKickData():
                                         "converted_followers" : converted_followers,
                                         "conversion_rate" : conversion_rate,
                                         "proj_video_plays" : proj_video_plays,
-                                        "project_id" : project_id,
-                                        "Referrers" : refrerrers
+                                        "project_id" : project_id
+                                        # "Referrers" : refrerrers
                                 })
-                                # return {
-                                #         "Pleged" : pleged,
-                                #         "average_Pleged" : avg_pleged,
-                                #         "pleged_via_kickstarter" : pleged_via_kickstarter,
-                                #         "pleged_via_external" : pleged_via_external,
-                                #         "pleged_via_custom" : pleged_via_custom,
-                                #         "funded" : funded,
-                                #         "backers" : backers,
-                                #         "sec_to_go" : sec_to_go,
-                                #         "proj_followers" : proj_followers,
-                                #         "converted_followers" : converted_followers,
-                                #         "conversion_rate" : conversion_rate,
-                                #         "proj_video_plays" : proj_video_plays,
-                                #         "project_id" : project_id,
-                                #         "Referrers" : refrerrers
-                                # }
-                                # print("naina",l)
-                                # return Response(l) 
                                 kickstarterScrapper = Kickstarter.objects.create(
                                         jsondata  =  l,
                                         unique = ass,
@@ -472,9 +456,8 @@ def getKickData():
                                                                 )
                                 print("KickstarterScrapper.json vala",kickstarterScrapper.jsondata,sep='\n')    
                         except Exception as e:
-                                return {
-                                        "error" : e
-                                        } 
+                                print({"error" : e})
+                                return 
 
 @api_view(['GET'])
 def getIndiegogoDaily(request,pk):
@@ -534,4 +517,3 @@ def start():
         scheduler= BackgroundScheduler()
         scheduler.add_job(callAll,'date', run_date=f'{dd.year}-{dd.month}-{dd.day} 17:42:05')
         scheduler.start()
-
