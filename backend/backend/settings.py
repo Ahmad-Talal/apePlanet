@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-qojzionurr-05n^uz0_cu8^kck&p97q57f!fgl6%(!=_9g64i$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['dashboard.backerzoom.com']
 
@@ -160,7 +160,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static-back/'
 MEDIA_URL  = '/images/'
 
 # Default primary key field type
@@ -170,8 +170,8 @@ STATICFILES_DIRS=[
     BASE_DIR / 'static'
 ]
 
-MEDIA_ROOT='static/images'
-
+MEDIA_ROOT='static-back/images'
+STATIC_ROOT='static-back/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
