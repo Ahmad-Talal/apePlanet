@@ -175,40 +175,40 @@ return(
                 </ListGroup>
                 <br/><br/>
 
-//                 <h1>Referrers</h1>
+                {/* <h1>Referrers</h1>
 
-//                 <Table striped bordered hover>
-//                     <thead>
-//                     <tr>
-//                         <th>Referrer</th>
-//                         <th>Type</th>
-//                         <th># of Pledges</th>
-//                         <th>% of Pledged</th>
-//                         <th>Pledged</th>
-//                     </tr>
-//                     </thead>
-//                     <tbody>
-//                     {
-//                         ite.Referrers.data.map((info,ind)=>{
-//                             return(
-//                                 <tr key={ind}>
-//                                 <td>{info.name}</td>
-//                                 <td>{info.type}</td>
-//                                 <td>{info.backers_count}</td>
-//                                 <td>{Number(info.percentage)*100}%</td>
-//                                 <td>{info.pledged_amount}</td>
-//                                 </tr>
+                <Table striped bordered hover>
+                    <thead>
+                    <tr>
+                        <th>Referrer</th>
+                        <th>Type</th>
+                        <th># of Pledges</th>
+                        <th>% of Pledged</th>
+                        <th>Pledged</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {
+                        ite.Referrers.data.map((info,ind)=>{
+                            return(
+                                <tr key={ind}>
+                                <td>{info.name}</td>
+                                <td>{info.type}</td>
+                                <td>{info.backers_count}</td>
+                                <td>{Number(info.percentage)*100}%</td>
+                                <td>{info.pledged_amount}</td>
+                                </tr>
 
-//                             )
-//                         })
-//                     }
+                            )
+                        })
+                    }
                     
-//                     </tbody>
-//                     </Table>
+                    </tbody>
+                    </Table> */}
 
                     <h1>Project Followers</h1>
 
-                    <>               
+                    <div>               
                     <br />
                    
                         <Button variant="info">{ite.proj_followers}</Button>
@@ -218,7 +218,7 @@ return(
                         <Button variant="success">{ite.conversion_rate}</Button>
                         <h>Conversion Rate</h>
                     <br />
-                    </>
+                    </div>
 
                     <br/>
 
