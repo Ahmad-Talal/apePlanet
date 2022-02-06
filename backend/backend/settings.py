@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qojzionurr-05n^uz0_cu8^kck&p97q57f!fgl6%(!=_9g64i$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dashboard.backerzoom.com']
+ALLOWED_HOSTS = ['dashboard.backerzoom.com','127.0.0.1']
 
 
 # Application definition
