@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios  from 'axios';
+import Loader from '../components/Loader'
+import { useHistory } from "react-router-dom";
 import {
   ReportWrapper,
   StyledTable,
 } from "./styles";
 import {Row,Col} from 'react-bootstrap'
-const ShowTotalAdCost = ({obj,history}) => {
+const ShowTotalAdCost = ({obj}) => {
 
+  let history = useHistory();
   const [spend,setSpend] = useState([])
   const [counter,setCounter] = useState(0)
   const [ans,setAns] = useState(0.0)
+  const [loading,setLoading] = useState(true)
   let set =0
   let ff;
   let ret=[]
@@ -28,11 +32,23 @@ const ShowTotalAdCost = ({obj,history}) => {
        if(counter===0){
         ff= Number(obj.fb)
     async function con(){
+      setLoading(false)
+   
+
+      
     const {data} =await axios.get(
           `https://graph.facebook.com/v12.0/act_${ff}/insights?date_preset=last_7d&time_increment=1&fields=spend%2Cctr%2Ccpp&access_token=${obj.accessToken}`)
-          setSpend(data)
-         
-         // console.log("chand   ",data.data[0].spend)
+          
+          //console.log('lag aese ,',data)
+          if (data){
+            setSpend(data)
+            
+          }
+          else{
+            window.confirm("Need to Sign in through Admin. Contact Admin!!")
+            history.push('/')
+          }
+        // console.log("chand   ",data.data[0].spend)
       //console.log("all  ",spend)
           setCounter(1)
         }
@@ -42,14 +58,14 @@ const ShowTotalAdCost = ({obj,history}) => {
       }
    }
    catch(err){
-                  if (set!==0)
-                  {
-                    history.push(`/campaign/${set}`)
-                  }
+        if (set!==0)
+        {
+          history.push(`/campaign/${set}`)
+        }
                  
    }
 
-  }, 12000);
+  }, 2000);
    
   }, [history,obj,spend,set,counter]);
 
@@ -62,7 +78,7 @@ const ShowTotalAdCost = ({obj,history}) => {
           sum =sum + (Number(spend.data[i].spend))
           cp=  (cp+ (Number(parseFloat(spend.data[i].cpp))) )
   
-          console.log("yrr cp->",cp," i->",i+1,"  ind",(Number(parseFloat(spend.data[i].cpp))))
+        //  console.log("yrr cp->",cp," i->",i+1,"  ind",(Number(parseFloat(spend.data[i].cpp))))
           ret.push(sum)
           cpa.push(cp)
       }
@@ -75,6 +91,11 @@ const ShowTotalAdCost = ({obj,history}) => {
  }
   
   return (
+
+    <div>
+ {
+   loading ? <Loader></Loader> 
+   :
    
     <Row>
        <Col md={3}>
@@ -143,7 +164,8 @@ const ShowTotalAdCost = ({obj,history}) => {
     </Col>
 
       </Row>
-
+ }
+ </div>
   );
 };
 

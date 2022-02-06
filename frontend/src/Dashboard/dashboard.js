@@ -64,7 +64,7 @@ const setKar=()=>{
        
         setViewID(`${data.gaId}`)
         setFbID(data.fbId)
-        //console.log('haae oee',data.fbId)
+      //  console.log('haae oee acesssssss,     , ',obj.accessToken)
     }   
     campaignlist()  
     //setViewID(`${campaign.gaId}`)

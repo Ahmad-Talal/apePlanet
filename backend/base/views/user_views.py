@@ -505,6 +505,22 @@ def getKickstarterAll(request,pk):
         serializer= KickstarterSerializer(alll,many=True)
         return Response(serializer.data)
 
+@api_view(['GET'])
+def getToken(request,pk):
+        token=Token.objects.get(_id=pk)
+        serializer= TokenSerializer(token,many=False)
+        return Response(serializer.data)
+
+@api_view(['PUT'])
+def updateToken(request,pk):
+        data = request.data
+        token=Token.objects.get(_id=pk)
+        token.fbToken = data['fbToken']
+        token.save() 
+        serializer= TokenSerializer(token,many=False)
+        return Response(serializer.data)
+
+
 def job():
         print("time")
 
@@ -515,5 +531,6 @@ def callAll():
 def start():
         dd=datetime.now()
         scheduler= BackgroundScheduler()
-        scheduler.add_job(callAll,'date', run_date=f'{dd.year}-{dd.month}-{dd.day} 17:42:05')
+        scheduler.add_job(callAll,'date', run_date=f'{dd.year}-{dd.month}-{dd.day} 23:37:05')
         scheduler.start()
+

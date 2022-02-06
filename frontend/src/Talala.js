@@ -39,7 +39,7 @@ const responseFacebook = response => {
       setEmail(response.email)
       setPicture(response.picture.data.url)
       setUserId(response.userId)
-      setToken(response.accessToken)
+      setToken("EAAJEpxZA4WZA0BAOgmkQI2eZAcz4ZAD9MwyZApM87GL9hb42IoShmhvmJpuLShAslU0zDA36wTPLLW1nZC3oJTMl3MDJdRM9zJC3L1KBjqWC6XksCFBmtwfPTSGB7t4rpVuy2XtK7xvadH0iaqrelXn4qlbn1O5x20mUMaDe1KFkXyaGFvSkPn2S60myAOhr6wjRBmIfrEtqwcicCVTqKahhceXTDZCZBS8ZD")
     }  
   }catch(err){
 
@@ -58,7 +58,15 @@ const responseFacebook = response => {
         setIdd(data.cl)
         //console.log("bhaijaan",data.cl)
     }   
-    clientIdGet()  
+    clientIdGet() 
+    
+    async function fbtokenGet(){
+  
+          const {data} =await axios.get(`/api/users/token/${1}/`)
+          setToken(data.fbToken)
+          //console.log("investment ",data.fbToken) 
+      }   
+      fbtokenGet() 
     //setParse(`/live-campaign/${va}?platform=${campaign.platform}`)
 }  
 else
@@ -102,34 +110,9 @@ else
 
   return (
     <div className="App">
-      {!isSignedIn ? (
-        <>
-          <Title>Google Analytics Dashboard</Title>
-          <ButtonContainer>
-            <div id="signin-button"></div>
-          </ButtonContainer>
-          <Footer />
-        </>
-        
-      )
-      
-      : loggedIn ?
-       (
-        <Dashboard obj ={{accessToken:token,id:props.ID}}/>
-        
-      )
-       :
-       <div>
-       <FacebookLogin
-          appId="638434380634525"
-          autoLoad={true}
-          fields="name,email,picture"
-          onClick={componentClicked}
-          callback={responseFacebook} />
-       </div>   }
-      
+      <Dashboard obj ={{accessToken:token,id:props.ID}}/>
     </div>
-  );
+             );
 }
 
 export default Talala;

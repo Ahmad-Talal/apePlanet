@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Campaign, ClientId, Indiegogo, Kickstarter
+from .models import Campaign, ClientId, Indiegogo, Kickstarter, Token
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -56,5 +56,10 @@ class IndiegogoSerializer(serializers.ModelSerializer):
 class KickstarterSerializer(serializers.ModelSerializer):
     class Meta:
         model=Kickstarter
+        fields='__all__'        
+   
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Token
         fields='__all__'        
    

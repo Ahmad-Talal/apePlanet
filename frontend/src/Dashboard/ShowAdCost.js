@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios  from 'axios';
+import Loader from '../components/Loader'
+import { useHistory } from "react-router-dom";
 import {
   ReportWrapper,
   StyledTable,
 } from "./styles";
 import {Row,Col} from 'react-bootstrap'
-const ShowAdCost = ({obj,history}) => {
+const ShowAdCost = ({obj}) => {
 
+  let history = useHistory();
   const [spend,setSpend] = useState([])
   const [counter,setCounter] = useState(0)
+  const [loading,setLoading] = useState(true)
   let set =0
   let ff ;
   if(obj)
@@ -26,11 +30,24 @@ const ShowAdCost = ({obj,history}) => {
         // console.log("shishi  ",obj.fb)
          ff= Number(obj.fb)
     async function con(){
+      setLoading(false)
+
+      
     const {data} =await axios.get(
           `https://graph.facebook.com/v12.0/act_${ff}/insights?date_preset=last_7d&time_increment=1&fields=spend%2Cctr%2Ccpp&access_token=${obj.accessToken}`)
+         
+          console.log('lag aese ,',data)
+          if (data)
+          {
           setSpend(data)
+         
+          }else
+          {
+            window.confirm("Need to Sign in through Admin. Contact Admin!!")
+            history.puhs('/')
+          } 
        //   console.log("chand   ",data.data[0].spend)
-      console.log("all  ",spend)
+      //console.log("all  ",spend)
           setCounter(1)
         }
   con()  
@@ -39,21 +56,25 @@ const ShowAdCost = ({obj,history}) => {
       }
    }
    catch(err){
-                  if (set!==0)
-                  {
-                    history.push(`/campaign/${set}`)
-                  }
+        if (set!==0)
+            {
+              history.push(`/campaign/${set}`)
+            }
                  
    }
 
-  }, 9000);
+  }, 2000);
    
   }, [history,obj,spend,set,counter]);
  
 
   return (
-   
-    <Row>
+ <div>
+ {
+   loading ? <Loader></Loader> 
+   :
+   <Row>
+
        <Col md={3}>
         <ReportWrapper>
             <StyledTable>
@@ -142,6 +163,10 @@ const ShowAdCost = ({obj,history}) => {
     </Col>
 
    </Row>
+
+
+ }
+       </div>
 
   );
 };

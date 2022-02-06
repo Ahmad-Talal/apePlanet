@@ -49,5 +49,8 @@ urlpatterns=[
     path('delete/<str:pk>/',views.delUser, name='user-delete'),
     path('campaign/delete/<str:pk>/',views.delCampaign, name='campaign-delete'),
     path('campaign/<str:pk>/id/',views.getCampaignByID,name='get-campaign'),
+
+    path('token/<str:pk>/',views.getToken,name='get-token'),
+    path('token/send/<str:pk>/',views.updateToken,name='update-token'),
     
 ]
