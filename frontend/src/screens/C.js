@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import "../App.css";
 import axios  from 'axios';
 import { useSelector} from 'react-redux'
 import {
@@ -9,6 +10,9 @@ import {
 import {Row,Col} from 'react-bootstrap'
 import FacebookLogin from 'react-facebook-login';
 import { combineReducers } from 'redux';
+import { renderButton, checkSignedIn } from "../GoogleAuth/authUtils";
+import styled from "styled-components";
+import { GoogleLogin } from 'react-google-login';
  
 
 const C =({history}) =>{
@@ -17,12 +21,15 @@ const C =({history}) =>{
     const {userInfo} = userLogin
     
     const [loggedIn,setLoggedIn] = useState(false)
+    const [signedIn,setSignedIn] = useState(false)
     const [userId,setUserId] = useState("")
     const [name,setName] = useState("")
     const [email,setEmail] = useState("")
     const [picture,setPicture] = useState("")
     const [token,setToken] = useState("")
+    const [googleTok,setGoogleTok] = useState("")
     const [state,setState] = useState(true)
+    const [state2,setState2] = useState(true)
     const act = 3016464492016270
     const componentClicked = data =>{
       try{
@@ -49,14 +56,29 @@ const C =({history}) =>{
       }
        
       };
+
+      
+const responseGoogle = (response) => {
+  try{
+    console.log("response   ",response.accessToken);
+    setSignedIn(true)
+    setGoogleTok(response.accessToken)
+ }
+ catch(err){
+
+ }
+ 
+}
+
        
     const [set,setSet] = useState({})
+    const [setg,setSetg] = useState({})
     useEffect(() => {
 
       if(userInfo&&userInfo.isAdmin){
         try{
-        if(state){
-                if (token){
+        if(token && googleTok){
+                if (state){
                     async function con(){
                     
                     
@@ -71,6 +93,23 @@ const C =({history}) =>{
                     }
                     con()  
                 } 
+
+                if (state2){
+                  async function sendGoogleToken(){
+                  
+                  
+                      //console.log("daaata->  ",2)
+                      const {data} =await axios.put(
+                          `/api/users/google/token/send/${1}/`,
+                          {'googleToken':googleTok})
+                          
+                      // console.log("abbu gg        ",data)
+                      setSetg(data)
+                      setState2(false)
+                  }
+                  sendGoogleToken()  
+              } 
+
               } 
             }
             catch(err){
@@ -81,12 +120,39 @@ const C =({history}) =>{
             else{
                   history.push("/")
             }
-}, [set,loggedIn,name,picture,email,userId,token,state,history,userInfo])
+}, [set,loggedIn,name,picture,email,userId,token,state,history,userInfo,signedIn,googleTok,setg,state2])
+
+
+
 
 return (
    <div> 
    {
-       loggedIn ?
+     signedIn ?
+     (
+       <div>
+          <strong>
+            {googleTok}
+          </strong>
+       </div>
+     )
+     :
+     (
+      <GoogleLogin
+              clientId="595698966414-6q021rval3139h8v5opib47ij85l02km.apps.googleusercontent.com"
+              buttonText="Login"
+              onSuccess={responseGoogle}
+              isSignedIn={true}
+              onFailure={responseGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
+  
+     )
+     
+   }
+        
+   {
+        loggedIn ?
        <div style={{
         width:"400px",
         margin :"auto",
@@ -113,11 +179,6 @@ return (
           callback={responseFacebook} />
        </div>       
    }   
-   
-   
-    
-    
-
    </div>
 )
 

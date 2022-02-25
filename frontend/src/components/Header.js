@@ -43,6 +43,10 @@ const Header=()=> {
   <NavDropdown.Item>your campaigns</NavDropdown.Item>
   </LinkContainer>
 
+  <LinkContainer to={`/report`}>
+  <NavDropdown.Item>Report</NavDropdown.Item>
+  </LinkContainer>
+
   </NavDropdown>
 
 ):  (<LinkContainer to='/Login'>
@@ -61,15 +65,15 @@ const Header=()=> {
 </LinkContainer>
 
 <LinkContainer to='/admin/createcampaign'>
-<NavDropdown.Item>create campaign</NavDropdown.Item>
+<NavDropdown.Item>Create Campaign</NavDropdown.Item>
 </LinkContainer>
 
 <LinkContainer to='/admin/campaigns'>
-<NavDropdown.Item>view campaigns</NavDropdown.Item>
+<NavDropdown.Item>View Campaigns</NavDropdown.Item>
 </LinkContainer>
 
 <LinkContainer to='/register'>
-<NavDropdown.Item>Create a User</NavDropdown.Item>
+<NavDropdown.Item>Create A User</NavDropdown.Item>
 </LinkContainer>
 
 <LinkContainer to='/admin/change/clientID'>
@@ -77,7 +81,7 @@ const Header=()=> {
 </LinkContainer>
 
 <LinkContainer to='/fb'>
-<NavDropdown.Item>Facebook Login</NavDropdown.Item>
+<NavDropdown.Item>Refresh Logins</NavDropdown.Item>
 </LinkContainer>
 
 </NavDropdown>

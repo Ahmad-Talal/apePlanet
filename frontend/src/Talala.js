@@ -94,7 +94,7 @@ else
   };
 
   const init = () => {
-    checkSignedIn(idd)
+    checkSignedIn()
       .then((signedIn) => {
         updateSignin(signedIn);
         window.gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignin);

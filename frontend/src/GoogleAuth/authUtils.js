@@ -1,4 +1,4 @@
-const initAuth = (cl) => {
+const initAuth = () => {
   //console.log("idherrrrrrr",cl)
   return window.gapi.auth2.init({
     client_id: "595698966414-6q021rval3139h8v5opib47ij85l02km.apps.googleusercontent.com",
@@ -6,9 +6,9 @@ const initAuth = (cl) => {
   });
 };
 
-export const checkSignedIn = (cl) => {
+export const checkSignedIn = () => {
   return new Promise((resolve, reject) => {
-    initAuth(cl)
+    initAuth()
       .then(() => {
         const auth = window.gapi.auth2.getAuthInstance();
         resolve(auth.isSignedIn.get());
@@ -21,6 +21,7 @@ export const checkSignedIn = (cl) => {
 
 const onSuccess = (googleUser) => {
   console.log("Logged in as: " + googleUser.getBasicProfile().getName());
+  console.log("hope      ",googleUser)
 };
 
 const onFailure = (error) => {

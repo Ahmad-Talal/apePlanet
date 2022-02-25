@@ -21,7 +21,9 @@ const BrowsersReport = (props) => {
 
   const displayResults = (response) => {
     const queryResult = response.result.reports[0].data.rows;
+    console.log("sabse pehle idher    ",queryResult)
     setTotalUsers(response.result.reports[0].data.totals[0].values[0]);
+    console.log("then idher    ",queryResult)
     setTotalCountries(queryResult.length);
     let labels = [];
     let values = [];

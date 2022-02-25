@@ -21,6 +21,7 @@ import CommulativeIndiegogoScreen from './screens/CommulativeIndiegogoScreen'
 import LiveKickScreen from './screens/LiveKickScreen'
 import CommulativeKickstarterScreen from './screens/CommulativeKickstarterScreen'
 import C from './screens/C'
+import ReportScreen from './screens/ReportScreen'
 
 
 import Goals from './Goals';
@@ -56,7 +57,8 @@ function App() {
       <Route path='/kickvaala' component={LiveKickScreen}/>
       <Route path='/kickstarter/commulative' component={CommulativeKickstarterScreen}/>
       <Route path='/fb' component={C}/>
- 
+      <Route path='/report' component={ReportScreen}/>
+
       <Route path='/' component={HomeScreen}/>
       {/* <Route path='/' component={Goals}/> */}
     </Container>

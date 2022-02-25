@@ -52,5 +52,8 @@ urlpatterns=[
 
     path('token/<str:pk>/',views.getToken,name='get-token'),
     path('token/send/<str:pk>/',views.updateToken,name='update-token'),
+
+    # path('google/token/<str:pk>/',views.getGoogleToken,name='get-google-token'),
+    path('google/token/send/<str:pk>/',views.updateGoogleToken,name='update-google-token'),
     
 ]
