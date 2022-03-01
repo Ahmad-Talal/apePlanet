@@ -68,7 +68,7 @@ today = yyyy + '-' + mm + '-'+ dd;
 
 const displayResults = (response) => {
     const queryResult = response.rows;
-    console.log("sabse pehle idher    ",queryResult)
+    //console.log("sabse pehle idher    ",queryResult)
     let labels = [];
     let values = [];
     let bgColors = [];
@@ -120,7 +120,7 @@ const displayResults = (response) => {
 
   const disp = (response) => {
     const queryResult = response.rows;
-    console.log("sabse pehle idher 222222    ",queryResult)
+    //console.log("sabse pehle idher 222222    ",queryResult)
     let labels = [];
     let values = [];
     let bgColors = [];
@@ -223,7 +223,7 @@ const displayResults = (response) => {
                    try{
                     const {data} =await axios.get(
                         `https://www.googleapis.com/analytics/v3/data/ga?access_token=${googleToken}&ids=ga%3A${viewID}&dimensions=ga%3Adate&metrics=ga%3Ausers%2Cga%3Agoal1Completions%2Cga%3Agoal2Completions%2Cga%3Agoal2ConversionRate%2Cga%3AgoalConversionRateAll&sort=-ga%3Adate&start-date=2005-01-01&end-date=${today}`)
-                       // console.log('lag aese ,',data.rows)
+                        console.log('lag aese ,',data.rows)
                         setCounter(1)
                         setLoading(false) 
                        if (data)
@@ -241,7 +241,7 @@ const displayResults = (response) => {
                    }
                    catch(err){
                        setLoading(false)
-                     //  console.log("idher he bhaii",err)
+                       console.log("idher he bhaii google",err)
              
                        history.push('/')
                    }
@@ -266,7 +266,7 @@ const displayResults = (response) => {
                 setCounter2(1)
                 const {data} =await axios.get(
                     `https://graph.facebook.com/v12.0/act_${fbID}/insights?fields=spend%2Cctr%2Ccpp&time_range%5Bsince%5D=${start}-08-01&time_range%5Buntil%5D=${today}&time_increment=1&limit=40&access_token=${fbToken}`)
-                  //  console.log("fb dekh",data)
+                  console.log("fb dekh",data)
                  setLoading2(false) 
                 if (data)
                 {
@@ -283,7 +283,7 @@ const displayResults = (response) => {
             }
             catch(err){
                 setLoading2(false)
-               // console.log("idher he bhaii",err)
+                console.log("idher he bhaii",err)
             
                 history.push('/')
             }
@@ -308,7 +308,7 @@ const displayResults = (response) => {
      try{
       const {data} =await axios.get(
           `https://www.googleapis.com/analytics/v3/data/ga?access_token=${googleToken}&ids=ga%3A${viewID}&dimensions=ga%3Acountry&metrics=ga%3Agoal1Completions%2Cga%3Agoal2Completions%2Cga%3Agoal2ConversionRate&sort=-ga%3Agoal1Completions&start-date=2005-01-01&end-date=${today}`)
-        //console.log('lag aese ,',data)
+        console.log('lag aese ,',data)
           setCounter3(1)
           setLoading3(false) 
          if (data)
@@ -326,7 +326,7 @@ const displayResults = (response) => {
      }
      catch(err){
          setLoading3(false)
-       //  console.log("idher he bhaii",err)
+        console.log("idher he bhaii google 2",err)
          //window.confirm("Need to Contact Admin!!")
          history.push('/')
      }
@@ -349,8 +349,8 @@ const displayResults = (response) => {
    async function countriesData24(){               
      try{
       const {data} =await axios.get(
-          `https://www.googleapis.com/analytics/v3/data/ga?access_token=${googleToken}&ids=ga%3A${viewID}&dimensions=ga%3Acountry&metrics=ga%3Agoal1Completions%2Cga%3Agoal2Completions%2Cga%3Agoal2ConversionRate&sort=-ga%3Agoal1Completions&start-date=${yest}&end-date=${today}`)
-        //console.log('lag aese ,',data)
+          `https://www.googleapis.com/analytics/v3/data/ga?access_token=${googleToken}&ids=ga%3A${viewID}&dimensions=ga%3Acountry&metrics=ga%3Agoal1Completions%2Cga%3Agoal2Completions%2Cga%3Agoal2ConversionRate&sort=-ga%3Agoal1Completions&start-date=yesterday&end-date=today`)
+            console.log('lag aese ,',data)
           setCounter4(1)
           setLoading4(false) 
          if (data)
@@ -368,7 +368,7 @@ const displayResults = (response) => {
      }
      catch(err){
          setLoading4(false)
-       //  console.log("idher he bhaii",err)
+       console.log("idher he bhaii google3",err)
       
          history.push('/')
      }
@@ -392,7 +392,7 @@ const displayResults = (response) => {
     
       const {data} =await axios.get(
           `https://www.googleapis.com/analytics/v3/data/ga?access_token=${googleToken}&ids=ga%3A${viewID}&dimensions=ga%3Acountry&metrics=ga%3Agoal1Completions&sort=-ga%3Agoal1Completions&start-date=2005-01-01&end-date=yesterday`)
-        //console.log('lag aese ,',data)
+        console.log('lag aese ,',data)
        
           setCounter5(1)
           setLoading5(false) 
@@ -422,7 +422,7 @@ const displayResults = (response) => {
     
       const {data} =await axios.get(
           `https://www.googleapis.com/analytics/v3/data/ga?access_token=${googleToken}&ids=ga%3A${viewID}&dimensions=ga%3Acountry&metrics=ga%3Agoal2Completions&sort=-ga%3Agoal2Completions&start-date=2005-01-01&end-date=yesterday`)
-        //console.log('lag aese ,',data)
+        console.log('lag aese ,',data)
        
           setCounter6(1)
           setLoading6(false) 
