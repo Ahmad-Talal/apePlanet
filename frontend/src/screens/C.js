@@ -172,7 +172,7 @@ return (
        :
        <div>
        <FacebookLogin
-          appId="638434380634525"
+          appId="592097808553204"
           autoLoad={true}
           fields="name,email,picture"
           onClick={componentClicked}
